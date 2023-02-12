@@ -76,14 +76,15 @@ Time Max(St s)
 //Удалить максимальный элемент из стека
 void Delete_from_stack(St& s)
 {
-    Time m = Max(s);//находим максимальный элемент
+    Time m;//= Max(s);//находим максимальный элемент
     Vec v;
     Time t;
     while (!s.empty())//пока стек не пустой
     {
         t = s.top();//получаем элемент из вершины стека
         //если он не равен максимальному, заносим элемент в вектор
-        //if (t != m)v.push_back(t); //---------Тут почему то выкидыает ошибку.....
+        //if (t != m)v.push_back(t); //---------Тут почему то выкидыает ошибку..... if (i != pos) v.push_back(t);
+       // if (t != m)v.push_back(t);
         s.pop();//удаляем элемент из стека
     }
     s = copy_vector_to_stack(v);//копируем вектор в стек
@@ -117,6 +118,29 @@ void Delenie(St& s)
     s = copy_vector_to_stack(v);//копируем вектор в стек
 }
 
+//добавление элемента в стек
+void Add_to_stack(St& s, Time el)
+{
+    s.push(el);
+}
+
+//Удалить элемент из стека
+void del_to_queue(St& s, int pos)
+{
+    int i = 1;
+    Vec v;
+    Time t;
+    while (!s.empty())//пока стек не пустой
+    {
+        t = s.top();//получаем элемент из вершины стека
+        //если он не равен максимальному, заносим элемент в вектор
+        if (i != pos) v.push_back(t);
+        s.pop();//удаляем элемент из стека
+        i++;
+    }
+    s = copy_vector_to_stack(v);//копируем вектор в стек
+}
+
 int main()
 {
     Time t;
@@ -127,13 +151,15 @@ int main()
     s = make_stack(n);  //создать стек
     print_stack(s);     //печать стека
 
-    cout << "Delete Max:" << endl;
-    Delete_from_stack(s);
-    print_stack(s);
+    cout << "Max: " << Max(s) << endl;
 
-    cout << "Delenie:" << endl;
-    Delenie(s);
-    print_stack(s);
+    cout << "del pos?";
+    int pos;
+    cin >> pos;//вводим позицию для добавления
+
+    del_to_queue(s, pos);//добавление элемента
+    print_stack(s);//печать стека
+
 }
 
 
